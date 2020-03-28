@@ -8,3 +8,6 @@ build:
 	docker build \
 		--tag ${NAME}:${VERSION} \
 		.
+
+create-dotenv-file:
+	@echo "VUE_APP_BACKEND_URL=http://dialogia.tuuturu.org:3000" >> .env
