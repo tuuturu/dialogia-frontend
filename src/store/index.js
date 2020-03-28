@@ -16,8 +16,8 @@ export default new Vuex.Store({
 		}
 	},
 	actions: {
-		async searchForSubject(context, { query }) {
-			const { data } = axios.request({
+		async searchForSubjects(context, { query }) {
+			const { data } = await axios.request({
 				url: '/subjects',
 				method: 'get',
 				params: {

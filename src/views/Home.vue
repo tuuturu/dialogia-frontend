@@ -44,11 +44,11 @@ export default {
 
 .SubjectSearchBox {
 	width: 75%;
-
-	margin-bottom: 5em;
 }
 
 .TagCloud {
 	width: 100%;
+
+	margin-top: 4em;
 }
 </style>
