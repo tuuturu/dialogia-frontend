@@ -1,4 +1,6 @@
 import { nanoid } from 'nanoid'
+import logger from './logger'
+const log = logger.log
 
 export const CLIENT_EVENTS = Object.freeze({
 	// From server
@@ -79,6 +81,7 @@ export class Client {
 
 		this.websocket.onmessage = event => {
 			const serverEvent = JSON.parse(event.data)
+			log(serverEvent)
 
 			switch (serverEvent.type) {
 				case CLIENT_EVENTS.PARTICIPANT_COUNT:
