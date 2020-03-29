@@ -1,9 +1,6 @@
 <template>
 	<div class="Chat">
-		<ChatWindow
-			:message-events="message_events"
-			:local-ids="client.localMessageIds"
-		/>
+		<ChatWindow :message-events="message_events" :local-id="client.id" />
 		<textarea
 			aria-label="message input"
 			class="input-box"
@@ -16,7 +13,6 @@
 <script>
 import ChatWindow from '@/components/ChatWindow'
 import { Client, CLIENT_EVENTS } from '@/service/ChatService'
-import { mockMessageEvents } from '@/store/mockData'
 
 export default {
 	name: 'Discuss',
@@ -27,7 +23,7 @@ export default {
 		client: null,
 		subject: '',
 		inputBuffer: '',
-		message_events: mockMessageEvents
+		message_events: []
 	}),
 	methods: {
 		sendMessage() {
@@ -35,6 +31,7 @@ export default {
 
 			this.inputBuffer = ''
 
+			this.message_events.push({ from: this.client.id, message })
 			this.client.sendChatMessage({ message })
 			console.debug(`Sending msg: ${message}`)
 		}

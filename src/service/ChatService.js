@@ -7,7 +7,7 @@ export const CLIENT_EVENTS = Object.freeze({
 })
 
 const defaultOptions = {
-	nick: 'partner'
+	nick: 'Anonymous'
 }
 
 export class Client {
@@ -15,6 +15,7 @@ export class Client {
 		const actualOptions = Object.assign(defaultOptions, options)
 
 		this.websocket = null
+		this.id = nanoid()
 		this.nick = actualOptions.nick
 
 		this.handlers = {}
@@ -52,7 +53,8 @@ export class Client {
 			console.log('WebSocket connection established')
 			const clientInfo = {
 				type: 'register',
-				clientName: this.nick
+				clientName: this.id,
+				nick: this.nick
 			}
 
 			this.__sendToServer(clientInfo)

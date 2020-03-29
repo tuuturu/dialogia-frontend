@@ -20,7 +20,7 @@ import IconUser from '@/components/icons/IconUser'
 export default {
 	name: 'ChatWindow',
 	props: {
-		localIds: Object,
+		localId: String,
 		messageEvents: Array
 	},
 	components: {
@@ -28,7 +28,7 @@ export default {
 	},
 	methods: {
 		isLocalEvent(event) {
-			return this.localIds[event.id]
+			return this.localId === event.from
 		}
 	}
 }
