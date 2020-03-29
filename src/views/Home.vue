@@ -45,6 +45,10 @@ export default {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+
+	@media only screen and (max-width: 600px) {
+		align-items: flex-start;
+	}
 }
 
 .container {
