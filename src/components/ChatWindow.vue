@@ -4,14 +4,17 @@
 			<li
 				v-for="event in messageEvents"
 				:key="event.id"
-				:class="{ local: isLocalEvent(event) }"
+				:class="{ local: isLocalEvent(event), system: isSystemEvent(event) }"
 			>
-				<IconUser :alt="event.from" v-if="!isLocalEvent(event)" />
+				<IconUser
+					:alt="event.from"
+					v-if="!isSystemEvent(event) && !isLocalEvent(event)"
+				/>
 				<p>{{ event.message }}</p>
 				<IconUser
 					class="local-icon"
 					:alt="event.from"
-					v-if="isLocalEvent(event)"
+					v-if="!isSystemEvent(event) && isLocalEvent(event)"
 				/>
 			</li>
 		</ul>
@@ -33,6 +36,9 @@ export default {
 	methods: {
 		isLocalEvent(event) {
 			return this.localId === event.from
+		},
+		isSystemEvent(event) {
+			return event.from === 'system'
 		}
 	}
 }
@@ -67,6 +73,9 @@ li {
 }
 .local {
 	justify-content: flex-end;
+}
+.system {
+	justify-content: center;
 }
 
 .IconUser {

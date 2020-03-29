@@ -40,6 +40,13 @@ export default {
 			})
 
 			this.client.sendChatMessage({ message })
+		},
+		generateSystemMessage(message) {
+			this.message_events.push({
+				id: nanoid(),
+				from: 'system',
+				message
+			})
 		}
 	},
 	created() {
@@ -54,6 +61,8 @@ export default {
 		document.title = `Discussing ${this.client.subject}`
 
 		this.client.connect(process.env.VUE_APP_CHATSERVER_URL)
+
+		this.generateSystemMessage('Looking for a partner')
 	}
 }
 
