@@ -106,4 +106,8 @@ export class Client {
 
 		this.__sendToServer(clientEvent)
 	}
+
+	close() {
+		this.websocket.close()
+	}
 }

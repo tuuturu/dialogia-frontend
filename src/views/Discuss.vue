@@ -80,6 +80,9 @@ export default {
 		this.generateSystemMessage(
 			`Looking for a partner to discuss ${this.client.subject}`
 		)
+	},
+	beforeDestroy() {
+		this.client.close()
 	}
 }
 
