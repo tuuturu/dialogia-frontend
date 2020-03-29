@@ -40,7 +40,6 @@ export default {
 			})
 
 			this.client.sendChatMessage({ message })
-			console.debug(`Sending msg: ${message}`)
 		}
 	},
 	created() {
@@ -48,8 +47,6 @@ export default {
 		this.client.subject = sanitize(this.$route.query.subject)
 
 		this.client.on(CLIENT_EVENTS.MESSAGE, event => {
-			console.log(event)
-
 			this.message_events.push({ ...event, id: nanoid() })
 		})
 
