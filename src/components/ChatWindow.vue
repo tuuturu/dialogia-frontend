@@ -8,7 +8,11 @@
 			>
 				<IconUser :alt="event.from" v-if="!isLocalEvent(event)" />
 				<p>{{ event.message }}</p>
-				<IconUser :alt="event.from" v-if="isLocalEvent(event)" />
+				<IconUser
+					class="local-icon"
+					:alt="event.from"
+					v-if="isLocalEvent(event)"
+				/>
 			</li>
 		</ul>
 	</div>
@@ -70,5 +74,8 @@ li {
 	height: 78px;
 
 	color: $primary-color;
+}
+.local-icon {
+	color: #558564;
 }
 </style>
