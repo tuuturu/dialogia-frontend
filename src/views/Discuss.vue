@@ -76,6 +76,10 @@ function sanitize(text) {
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	@media only screen and (max-width: 600px) {
+		justify-content: flex-start;
+	}
 }
 
 .ChatWindow {
@@ -83,6 +87,18 @@ function sanitize(text) {
 	width: 50%;
 
 	margin-bottom: 1em;
+
+	@media only screen and (max-width: 600px) {
+		height: 95%;
+		width: 100%;
+		padding: 1em 0.5em 0.5em 0.5em;
+
+		margin: 0;
+
+		border: 0;
+		border-radius: 0;
+		border-bottom: 2px solid $primary-color;
+	}
 }
 
 .input-box {
@@ -94,5 +110,10 @@ function sanitize(text) {
 	border: 2px solid $primary-color;
 
 	resize: none;
+
+	@media only screen and (max-width: 600px) {
+		width: 100%;
+		border: 0;
+	}
 }
 </style>
