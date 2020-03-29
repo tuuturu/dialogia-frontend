@@ -1,3 +1,5 @@
+import { nanoid } from 'nanoid'
+
 export const CLIENT_EVENTS = Object.freeze({
 	CONNECT: 'connect',
 	ERROR: 'error',
@@ -16,6 +18,13 @@ export class Client {
 		this.nick = actualOptions.nick
 
 		this.handlers = {}
+		this.localMessageIds = {}
+	}
+
+	__sendToServer(clientEvent) {
+		console.log('Sending', clientEvent)
+
+		this.websocket.send(JSON.stringify(clientEvent))
 	}
 
 	on(event_name, handler) {
@@ -46,7 +55,7 @@ export class Client {
 				clientName: this.nick
 			}
 
-			this.sendToServer(clientInfo)
+			this.__sendToServer(clientInfo)
 			this.emit(CLIENT_EVENTS.CONNECT)
 		}
 
@@ -56,7 +65,7 @@ export class Client {
 		}
 
 		this.websocket.onmessage = event => {
-			console.debug('Receive message:', event.data)
+			console.log('Receive message:', event.data)
 
 			const serverEvent = JSON.parse(event.data)
 
@@ -64,9 +73,17 @@ export class Client {
 		}
 	}
 
-	sendToServer(clientEvent) {
-		console.debug('Sending', clientEvent)
+	sendChatMessage({ message }) {
+		const id = nanoid()
 
-		this.websocket.send(JSON.stringify(clientEvent))
+		this.localMessageIds[id] = true
+
+		const clientEvent = {
+			type: 'message',
+			id,
+			message
+		}
+
+		this.__sendToServer(clientEvent)
 	}
 }

@@ -1,6 +1,9 @@
 <template>
 	<div class="Chat">
-		<ChatWindow :message-events="message_events" />
+		<ChatWindow
+			:message-events="message_events"
+			:local-ids="client.localMessageIds"
+		/>
 		<textarea
 			aria-label="message input"
 			class="input-box"
@@ -12,6 +15,7 @@
 
 <script>
 import ChatWindow from '@/components/ChatWindow'
+import { Client, CLIENT_EVENTS } from '@/service/ChatService'
 import { mockMessageEvents } from '@/store/mockData'
 
 export default {
@@ -20,23 +24,33 @@ export default {
 		ChatWindow
 	},
 	data: () => ({
+		client: null,
 		subject: '',
 		inputBuffer: '',
 		message_events: mockMessageEvents
 	}),
 	methods: {
 		sendMessage() {
-			const pkg = {
-				message: this.inputBuffer + ''
-			}
+			const message = this.inputBuffer + ''
 
 			this.inputBuffer = ''
 
-			console.log(`Sending msg: ${pkg.message}`)
+			this.client.sendChatMessage({ message })
+			console.debug(`Sending msg: ${message}`)
 		}
+	},
+	created() {
+		this.client = new Client()
+
+		this.client.on(CLIENT_EVENTS.MESSAGE, event => {
+			console.log(event)
+			this.message_events.push(event)
+		})
 	},
 	mounted() {
 		document.title = sanitize(this.$route.query.subject)
+
+		this.client.connect(process.env.VUE_APP_CHATSERVER_URL)
 	}
 }
 

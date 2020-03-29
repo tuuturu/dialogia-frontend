@@ -3,7 +3,7 @@
 		<ul>
 			<li
 				v-for="event in messageEvents"
-				:key="event.message"
+				:key="event.id"
 				:class="{ local: isLocalEvent(event) }"
 			>
 				<IconUser :alt="event.from" v-if="!isLocalEvent(event)" />
@@ -20,6 +20,7 @@ import IconUser from '@/components/icons/IconUser'
 export default {
 	name: 'ChatWindow',
 	props: {
+		localIds: Object,
 		messageEvents: Array
 	},
 	components: {
@@ -27,7 +28,7 @@ export default {
 	},
 	methods: {
 		isLocalEvent(event) {
-			return event.from === 'me'
+			return this.localIds[event.id]
 		}
 	}
 }
