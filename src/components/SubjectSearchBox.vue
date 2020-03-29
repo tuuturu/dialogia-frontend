@@ -1,5 +1,5 @@
 <template>
-	<label>
+	<div class="SubjectSearchBox">
 		<datalist ref="searchData" id="searchData">
 			<option
 				v-for="option in options"
@@ -7,8 +7,10 @@
 				:value="option.value"
 			></option>
 		</datalist>
+
 		<input
-			class="SubjectSearchBox"
+			aria-label="Search for subject"
+			class="search-input"
 			type="search"
 			list="searchData"
 			@keyup.enter="discussSubject"
@@ -17,7 +19,7 @@
 			v-bind="$attrs"
 			v-on:="$listeners"
 		/>
-	</label>
+	</div>
 </template>
 
 <script>
@@ -62,8 +64,8 @@ export default {
 <style lang="scss" scoped>
 @import '~@/assets/theme.scss';
 
-.SubjectSearchBox {
-	width: 75%;
+.search-input {
+	width: 100%;
 
 	border: 2px solid $primary-color;
 	border-radius: 4px;
