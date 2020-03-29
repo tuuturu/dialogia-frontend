@@ -3,7 +3,8 @@ import { nanoid } from 'nanoid'
 export const CLIENT_EVENTS = Object.freeze({
 	CONNECT: 'connect',
 	ERROR: 'error',
-	MESSAGE: 'message'
+	MESSAGE: 'message',
+	PARTICIPANT_COUNT: 'participantCount'
 })
 
 const defaultOptions = Object.freeze({

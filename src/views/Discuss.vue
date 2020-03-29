@@ -52,6 +52,12 @@ export default {
 
 			this.message_events.push({ ...event, id: nanoid() })
 		})
+
+		this.client.on(CLIENT_EVENTS.PARTICIPANT_COUNT, event => {
+			console.log(event)
+
+			console.log('DO SOMTHING WITH COUNT!')
+		})
 	},
 	mounted() {
 		document.title = `Discussing ${this.client.subject}`
