@@ -1,3 +1,9 @@
+export const CLIENT_EVENTS = Object.freeze({
+	CONNECT: 'connect',
+	ERROR: 'error',
+	MESSAGE: 'message'
+})
+
 const defaultOptions = {
 	nick: 'partner'
 }
@@ -30,7 +36,7 @@ export class Client {
 		this.websocket.onerror = error => {
 			console.error('WebSocket error')
 
-			this.emit('error', error)
+			this.emit(CLIENT_EVENTS.ERROR, error)
 		}
 
 		this.websocket.onopen = () => {
@@ -41,7 +47,7 @@ export class Client {
 			}
 
 			this.sendToServer(clientInfo)
-			this.emit('connect')
+			this.emit(CLIENT_EVENTS.CONNECT)
 		}
 
 		this.websocket.onclose = () => {
@@ -54,7 +60,7 @@ export class Client {
 
 			const serverEvent = JSON.parse(event.data)
 
-			this.emit('message', serverEvent)
+			this.emit(CLIENT_EVENTS.MESSAGE, serverEvent)
 		}
 	}
 
