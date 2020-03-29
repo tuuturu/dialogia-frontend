@@ -71,6 +71,8 @@ export default {
 		this.client.on(CLIENT_EVENTS.PARTNER_DISCONNECT, () => {
 			this.generateSystemMessage('A partner has left 🧐')
 		})
+
+		window.onbeforeunload = () => this.client.close()
 	},
 	mounted() {
 		document.title = `Discussing ${this.client.subject}`
