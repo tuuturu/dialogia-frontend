@@ -6,9 +6,10 @@ export const CLIENT_EVENTS = Object.freeze({
 	MESSAGE: 'message'
 })
 
-const defaultOptions = {
-	nick: 'Anonymous'
-}
+const defaultOptions = Object.freeze({
+	nick: 'Anonymous',
+	subject: 'anything'
+})
 
 export class Client {
 	constructor(options = {}) {
@@ -17,6 +18,7 @@ export class Client {
 		this.websocket = null
 		this.id = nanoid()
 		this.nick = actualOptions.nick
+		this.subject = actualOptions.subject
 
 		this.handlers = {}
 		this.localMessageIds = {}
@@ -54,6 +56,7 @@ export class Client {
 			const clientInfo = {
 				type: 'register',
 				clientName: this.id,
+				subject: this.subject,
 				nick: this.nick
 			}
 

@@ -38,6 +38,7 @@ export default {
 	},
 	created() {
 		this.client = new Client()
+		this.client.subject = sanitize(this.$route.query.subject)
 
 		this.client.on(CLIENT_EVENTS.MESSAGE, event => {
 			console.log(event)
@@ -45,7 +46,7 @@ export default {
 		})
 	},
 	mounted() {
-		document.title = sanitize(this.$route.query.subject)
+		document.title = `Discussing ${this.client.subject}`
 
 		this.client.connect(process.env.VUE_APP_CHATSERVER_URL)
 	}
