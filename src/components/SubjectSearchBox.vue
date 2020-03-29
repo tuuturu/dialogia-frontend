@@ -63,7 +63,7 @@ export default {
 @import '~@/assets/theme.scss';
 
 .SubjectSearchBox {
-	width: 75%;
+	width: 100%;
 
 	border: 2px solid $primary-color;
 	border-radius: 4px;
