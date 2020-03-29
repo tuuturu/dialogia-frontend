@@ -24,8 +24,6 @@ export class Client {
 	}
 
 	__sendToServer(clientEvent) {
-		console.log('Sending', clientEvent)
-
 		this.websocket.send(JSON.stringify(clientEvent))
 	}
 
@@ -45,13 +43,10 @@ export class Client {
 		this.websocket = new WebSocket(url)
 
 		this.websocket.onerror = error => {
-			console.error('WebSocket error')
-
 			this.emit(CLIENT_EVENTS.ERROR, error)
 		}
 
 		this.websocket.onopen = () => {
-			console.log('WebSocket connection established')
 			const clientInfo = {
 				type: 'register',
 				clientName: this.id,
@@ -64,13 +59,10 @@ export class Client {
 		}
 
 		this.websocket.onclose = () => {
-			console.debug('WebSocket connection closed')
 			this.websocket = null
 		}
 
 		this.websocket.onmessage = event => {
-			console.log('Receive message:', event.data)
-
 			const serverEvent = JSON.parse(event.data)
 
 			this.emit(CLIENT_EVENTS.MESSAGE, serverEvent)
