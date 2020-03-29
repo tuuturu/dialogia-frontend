@@ -35,7 +35,6 @@ export class Client {
 	}
 
 	__participantCountChange(newValue, oldValue) {
-		console.log('Found participant change: ', newValue, oldValue)
 		if (oldValue === 0 && newValue === 1) return
 
 		if (newValue > oldValue) this.emit(CLIENT_EVENTS.PARTNER_CONNECT)
@@ -72,7 +71,6 @@ export class Client {
 			this.__sendToServer(clientInfo)
 
 			this.emit(CLIENT_EVENTS.CONNECT)
-			this.emit(CLIENT_EVENTS.PARTNER_CONNECT)
 		}
 
 		this.websocket.onclose = () => {
