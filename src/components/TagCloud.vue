@@ -43,6 +43,10 @@ export default {
 	grid-template-columns: repeat(3, 1fr);
 	grid-row-gap: 2em;
 
+	@media only screen and (max-width: 600px) {
+		grid-row-gap: 0;
+	}
+
 	@media screen and(min-width: 1000px) {
 		grid-template-columns: repeat(5, 1fr);
 	}

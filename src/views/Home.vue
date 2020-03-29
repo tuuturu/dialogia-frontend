@@ -3,8 +3,7 @@
 		<div class="container">
 			<SubjectSearchBox placeholder="What do you want to talk about?" />
 
-			<TagList v-if="isMobile()" :subjects="popularSubjects" />
-			<TagCloud v-else :subjects="popularSubjects" />
+			<TagCloud :subjects="popularSubjects" />
 		</div>
 	</div>
 </template>
@@ -14,12 +13,10 @@ import { mapState } from 'vuex'
 
 import SubjectSearchBox from '@/components/SubjectSearchBox'
 import TagCloud from '@/components/TagCloud'
-import TagList from '@/components/TagList'
 
 export default {
 	name: 'Home',
 	components: {
-		TagList,
 		SubjectSearchBox,
 		TagCloud
 	},
@@ -28,11 +25,6 @@ export default {
 	},
 	async created() {
 		await this.$store.dispatch('refreshPopularSubjects')
-	},
-	methods: {
-		isMobile() {
-			return document.documentElement.clientWidth <= 600
-		}
 	}
 }
 </script>
@@ -76,9 +68,9 @@ export default {
 	width: 100%;
 
 	margin-top: 4em;
-}
 
-.TagList {
-	margin-top: 2em;
+	@media only screen and (max-width: 600px) {
+		margin-top: 2em;
+	}
 }
 </style>
