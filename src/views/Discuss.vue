@@ -138,5 +138,6 @@ function sanitize(text) {
 
 .read-only {
 	background-color: #ebebeb;
+	border: 2px solid lightgrey;
 }
 </style>
