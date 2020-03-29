@@ -1,5 +1,5 @@
 <template>
-	<div class="ChatWindow">
+	<div class="ChatWindow" :class="{ connected: ready }">
 		<ul>
 			<li
 				v-for="event in messageEvents"
@@ -28,7 +28,8 @@ export default {
 	name: 'ChatWindow',
 	props: {
 		localId: String,
-		messageEvents: Array
+		messageEvents: Array,
+		ready: Boolean
 	},
 	components: {
 		IconUser
@@ -48,7 +49,7 @@ export default {
 @import '~@/assets/theme.scss';
 
 .ChatWindow {
-	border: 2px solid $primary-color;
+	border: 2px solid grey;
 	border-radius: 4px;
 
 	display: flex;
@@ -57,6 +58,15 @@ export default {
 	overflow-x: scroll;
 
 	padding: 0.5em;
+}
+.connected {
+	border: 2px solid $primary-color;
+
+	@media only screen and (max-width: 600px) {
+		border: 0;
+		border-radius: 0;
+		border-bottom: 2px solid $primary-color;
+	}
 }
 
 ul {

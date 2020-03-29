@@ -1,11 +1,17 @@
 <template>
 	<div class="Chat">
-		<ChatWindow :message-events="message_events" :local-id="client.id" />
+		<ChatWindow
+			:message-events="message_events"
+			:local-id="client.id"
+			:ready="hasPartner"
+		/>
 		<textarea
 			aria-label="message input"
 			class="input-box"
+			:class="{ 'read-only': !hasPartner }"
 			v-model="inputBuffer"
 			@keyup.enter="sendMessage"
+			:readonly="!hasPartner"
 		/>
 	</div>
 </template>
@@ -25,7 +31,8 @@ export default {
 		client: null,
 		subject: '',
 		inputBuffer: '',
-		message_events: []
+		message_events: [],
+		hasPartner: false
 	}),
 	methods: {
 		sendMessage() {
@@ -56,13 +63,23 @@ export default {
 		this.client.on(CLIENT_EVENTS.MESSAGE, event => {
 			this.message_events.push({ ...event, id: nanoid() })
 		})
+
+		this.client.on(CLIENT_EVENTS.PARTNER_CONNECT, () => {
+			this.generateSystemMessage('A partner has arrived 😁')
+			this.hasPartner = true
+		})
+		this.client.on(CLIENT_EVENTS.PARTNER_DISCONNECT, () => {
+			this.generateSystemMessage('A partner has left 🧐')
+		})
 	},
 	mounted() {
 		document.title = `Discussing ${this.client.subject}`
 
 		this.client.connect(process.env.VUE_APP_CHATSERVER_URL)
 
-		this.generateSystemMessage('Looking for a partner')
+		this.generateSystemMessage(
+			`Looking for a partner to discuss ${this.client.subject}`
+		)
 	}
 }
 
@@ -100,10 +117,6 @@ function sanitize(text) {
 		padding: 1em 0.5em 0.5em 0.5em;
 
 		margin: 0;
-
-		border: 0;
-		border-radius: 0;
-		border-bottom: 2px solid $primary-color;
 	}
 }
 
@@ -121,5 +134,9 @@ function sanitize(text) {
 		width: 100%;
 		border: 0;
 	}
+}
+
+.read-only {
+	background-color: #ebebeb;
 }
 </style>
