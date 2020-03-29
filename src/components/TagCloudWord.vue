@@ -14,9 +14,10 @@ export default {
 	computed: {
 		wordStyle() {
 			const style = {}
-			const size = this.subject.frequency / this.maxFrequency
+			let size = this.subject.frequency / this.maxFrequency
+			size = 30 * size
 
-			style['font-size'] = `${Math.pow(2 + size, 2) + 12}pt`
+			style['font-size'] = `${size}pt`
 
 			if (this.maxFrequency === this.subject.frequency)
 				style['font-weight'] = 'bold'

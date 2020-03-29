@@ -41,6 +41,7 @@ export default {
 	margin: 3rem auto;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
+	grid-row-gap: 2em;
 
 	@media screen and(min-width: 1000px) {
 		grid-template-columns: repeat(5, 1fr);
