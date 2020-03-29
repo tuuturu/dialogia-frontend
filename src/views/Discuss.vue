@@ -99,7 +99,7 @@ function sanitize(text) {
 }
 
 .input-box {
-	height: 72px;
+	height: 96px;
 	width: 50%;
 
 	padding: 1em;
