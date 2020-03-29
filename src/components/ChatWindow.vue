@@ -6,9 +6,9 @@
 				:key="event.message"
 				:class="{ local: isLocalEvent(event) }"
 			>
-				<IconUser v-if="!isLocalEvent(event)" />
+				<IconUser :alt="event.from" v-if="!isLocalEvent(event)" />
 				<p>{{ event.message }}</p>
-				<IconUser v-if="isLocalEvent(event)" />
+				<IconUser :alt="event.from" v-if="isLocalEvent(event)" />
 			</li>
 		</ul>
 	</div>
