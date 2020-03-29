@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import { nanoid } from 'nanoid'
+
 import ChatWindow from '@/components/ChatWindow'
 import { Client, CLIENT_EVENTS } from '@/service/ChatService'
 
@@ -31,7 +33,12 @@ export default {
 
 			this.inputBuffer = ''
 
-			this.message_events.push({ from: this.client.id, message })
+			this.message_events.push({
+				id: nanoid(),
+				from: this.client.id,
+				message
+			})
+
 			this.client.sendChatMessage({ message })
 			console.debug(`Sending msg: ${message}`)
 		}
@@ -42,7 +49,8 @@ export default {
 
 		this.client.on(CLIENT_EVENTS.MESSAGE, event => {
 			console.log(event)
-			this.message_events.push(event)
+
+			this.message_events.push({ ...event, id: nanoid() })
 		})
 	},
 	mounted() {
@@ -53,7 +61,6 @@ export default {
 }
 
 function sanitize(text) {
-	console.log('sanitize')
 	return decodeURIComponent(text)
 }
 </script>

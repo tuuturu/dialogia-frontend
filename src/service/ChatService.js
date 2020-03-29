@@ -21,7 +21,6 @@ export class Client {
 		this.subject = actualOptions.subject
 
 		this.handlers = {}
-		this.localMessageIds = {}
 	}
 
 	__sendToServer(clientEvent) {
@@ -79,13 +78,8 @@ export class Client {
 	}
 
 	sendChatMessage({ message }) {
-		const id = nanoid()
-
-		this.localMessageIds[id] = true
-
 		const clientEvent = {
 			type: 'message',
-			id,
 			message
 		}
 
