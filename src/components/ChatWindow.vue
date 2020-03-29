@@ -1,17 +1,20 @@
 <template>
-	<div class="ChatWindow">
+	<div class="ChatWindow" :class="{ connected: ready }">
 		<ul>
 			<li
 				v-for="event in messageEvents"
 				:key="event.id"
-				:class="{ local: isLocalEvent(event) }"
+				:class="{ local: isLocalEvent(event), system: isSystemEvent(event) }"
 			>
-				<IconUser :alt="event.from" v-if="!isLocalEvent(event)" />
+				<IconUser
+					:alt="event.from"
+					v-if="!isSystemEvent(event) && !isLocalEvent(event)"
+				/>
 				<p>{{ event.message }}</p>
 				<IconUser
 					class="local-icon"
 					:alt="event.from"
-					v-if="isLocalEvent(event)"
+					v-if="!isSystemEvent(event) && isLocalEvent(event)"
 				/>
 			</li>
 		</ul>
@@ -25,7 +28,8 @@ export default {
 	name: 'ChatWindow',
 	props: {
 		localId: String,
-		messageEvents: Array
+		messageEvents: Array,
+		ready: Boolean
 	},
 	components: {
 		IconUser
@@ -33,6 +37,9 @@ export default {
 	methods: {
 		isLocalEvent(event) {
 			return this.localId === event.from
+		},
+		isSystemEvent(event) {
+			return event.from === 'system'
 		}
 	}
 }
@@ -42,7 +49,7 @@ export default {
 @import '~@/assets/theme.scss';
 
 .ChatWindow {
-	border: 2px solid $primary-color;
+	border: 2px solid grey;
 	border-radius: 4px;
 
 	display: flex;
@@ -51,6 +58,15 @@ export default {
 	overflow-x: scroll;
 
 	padding: 0.5em;
+}
+.connected {
+	border: 2px solid $primary-color;
+
+	@media only screen and (max-width: 600px) {
+		border: 0;
+		border-radius: 0;
+		border-bottom: 2px solid $primary-color;
+	}
 }
 
 ul {
@@ -67,6 +83,9 @@ li {
 }
 .local {
 	justify-content: flex-end;
+}
+.system {
+	justify-content: center;
 }
 
 .IconUser {
