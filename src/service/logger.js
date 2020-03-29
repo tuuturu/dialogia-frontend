@@ -1,5 +1,5 @@
 export default {
-	log: function(obj) {
-		console.log(obj)
+	log: function() {
+		//console.log(obj)
 	}
 }

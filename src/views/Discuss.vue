@@ -71,12 +71,6 @@ export default {
 		this.client.on(CLIENT_EVENTS.PARTNER_DISCONNECT, () => {
 			this.generateSystemMessage('A partner has left 🧐')
 		})
-
-		this.client.on(CLIENT_EVENTS.PARTICIPANT_COUNT, event => {
-			console.log(event)
-
-			console.log('DO SOMTHING WITH COUNT!')
-		})
 	},
 	mounted() {
 		document.title = `Discussing ${this.client.subject}`
