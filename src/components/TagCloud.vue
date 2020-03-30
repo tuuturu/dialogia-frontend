@@ -3,7 +3,7 @@
 		<TagCloudWord
 			v-for="subject in subjects"
 			class="item"
-			:key="subject.value"
+			:key="subject.body"
 			:subject="subject"
 			:max-frequency="maxFrequency"
 		/>

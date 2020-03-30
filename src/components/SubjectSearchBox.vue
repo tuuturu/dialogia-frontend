@@ -3,8 +3,8 @@
 		<datalist ref="searchData" id="searchData">
 			<option
 				v-for="option in options"
-				:key="option.value"
-				:value="option.value"
+				:key="option.body"
+				:value="option.body"
 			></option>
 		</datalist>
 
@@ -27,7 +27,10 @@ const MINIMUM_SUBJECT_LENGTH = 4
 const SEARCH_DELAY = 100
 
 function byFrequency(s1, s2) {
-	return s1.frequency + s2.frequency
+	if (s1.frequency < s2.frequency) return 1
+	if (s1.frequency > s2.frequency) return -1
+
+	return 0
 }
 
 export default {

@@ -1,6 +1,6 @@
 <template>
 	<span @click="discussSubject" class="TagCloudWord" :style="wordStyle">
-		{{ subject.value }}
+		{{ subject.body }}
 	</span>
 </template>
 
@@ -29,7 +29,7 @@ export default {
 		discussSubject() {
 			this.$router.push({
 				path: '/discuss',
-				query: { subject: encodeURIComponent(this.subject.value) }
+				query: { subject: encodeURIComponent(this.subject.body) }
 			})
 		}
 	}
