@@ -7,6 +7,9 @@ REPOSITORY=docker.pkg.github.com/tuuturu/dialogia-frontend
 run:
 	npm run serve
 
+bump:
+	npm version patch
+
 build:
 	docker build \
 		--tag ${REPOSITORY}/${NAME}:${VERSION} \
@@ -15,6 +18,9 @@ build:
 
 push-image:
 	docker push ${REPOSITORY}/${NAME}:${VERSION}
+
+release: bump build push-image
+	@echo "🚀 Release is ready for deploy"
 
 create-local-dotenv-file:
 	@echo "VUE_APP_BACKEND_URL=http://localhost:3000" > .env.local
