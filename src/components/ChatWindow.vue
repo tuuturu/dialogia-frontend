@@ -60,7 +60,7 @@ export default {
 	padding: 0.5em;
 }
 .connected {
-	border: 2px solid $primary-color;
+	border: 0;
 
 	@media only screen and (max-width: 600px) {
 		border: 0;
